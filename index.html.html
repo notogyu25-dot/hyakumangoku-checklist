@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>大奉燈 チェックリスト｜百万石まつり</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700;900&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --enja:#6B0F1A;--gold:#C9922A;--gold-lt:#F0C040;
+  --ink:#1A0A08;--paper:#FDF6E3;--paper2:#F0E6CC;--paper3:#E0D0A8;--white:#fff;
+}
+body{font-family:'Noto Sans JP',sans-serif;background:var(--paper);color:var(--ink);min-height:100vh;overflow-x:hidden}
+#splash{position:fixed;inset:0;background:#0A0310;z-index:999;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;transition:opacity 1s ease}
+#splash.out{opacity:0;pointer-events:none}
+#splash-canvas{display:block;width:100%;height:100%;position:absolute;inset:0}
+#splash-ui{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;pointer-events:none;margin-top:40px}
+#splash-title{font-family:'Noto Serif JP',serif;font-size:28px;font-weight:900;color:var(--gold-lt);letter-spacing:0.18em;text-shadow:0 0 20px rgba(240,192,64,0.8),0 2px 8px rgba(0,0,0,0.9)}
+#splash-sub{color:rgba(255,240,180,0.75);font-size:12px;margin-top:8px;letter-spacing:0.12em;text-shadow:0 1px 4px rgba(0,0,0,0.9)}
+#splash-tap{color:rgba(255,240,180,0.5);font-size:11px;margin-top:32px;letter-spacing:0.1em;animation:blink 1.4s infinite;pointer-events:auto;cursor:pointer}
+@keyframes blink{0%,100%{opacity:0.2}50%{opacity:1}}
+header{background:var(--enja);background-image:repeating-linear-gradient(0deg,transparent,transparent 7px,rgba(255,255,255,0.04) 7px,rgba(255,255,255,0.04) 8px),repeating-linear-gradient(90deg,transparent,transparent 7px,rgba(255,255,255,0.04) 7px,rgba(255,255,255,0.04) 8px);padding:16px 14px 12px;text-align:center;position:sticky;top:0;z-index:100;box-shadow:0 3px 12px rgba(0,0,0,0.4)}
+header h1{font-family:'Noto Serif JP',serif;font-size:19px;font-weight:900;color:var(--gold-lt);letter-spacing:0.12em;text-shadow:0 1px 4px rgba(0,0,0,0.6)}
+header p{color:rgba(255,240,180,0.75);font-size:10px;margin-top:2px;letter-spacing:0.08em}
+.prog-wrap{background:var(--paper2);border-bottom:2px solid var(--paper3);padding:9px 14px 6px;position:sticky;top:65px;z-index:99}
+.prog-label{display:flex;justify-content:space-between;font-size:11px;color:#7a5530;margin-bottom:4px;font-weight:500}
+.prog-bg{background:var(--paper3);border-radius:4px;height:7px;overflow:hidden}
+.prog-fill{background:linear-gradient(90deg,var(--gold),var(--gold-lt));height:100%;border-radius:4px;transition:width 0.4s ease;width:0%}
+.reset-btn{display:block;margin:7px 0 0;background:none;border:1px solid var(--paper3);border-radius:6px;padding:5px 10px;font-size:11px;color:#7a5530;cursor:pointer;font-family:'Noto Sans JP',sans-serif}
+.reset-btn:active{background:var(--paper3)}
+.section{margin:12px 10px 0}
+.sec-head{display:flex;align-items:center;gap:8px;margin-bottom:5px;padding:0 4px}
+.sec-icon{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;color:#fff}
+.sec-当日 .sec-icon{background:var(--enja)}.sec-確認 .sec-icon{background:#2C6E8A}.sec-準備 .sec-icon{background:#4A7A2C}.sec-購入 .sec-icon{background:#7A5030}
+.sec-title{font-family:'Noto Serif JP',serif;font-size:14px;font-weight:700;letter-spacing:0.1em}
+.sec-当日 .sec-title{color:var(--enja)}.sec-確認 .sec-title{color:#2C6E8A}.sec-準備 .sec-title{color:#4A7A2C}.sec-購入 .sec-title{color:#7A5030}
+.sec-count{margin-left:auto;font-size:10px;color:#7a5530;background:var(--paper2);padding:2px 7px;border-radius:10px}
+.card{background:var(--white);border-radius:10px;border:1.5px solid var(--paper3);overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,0.06);margin-bottom:14px}
+.item{display:flex;align-items:center;gap:10px;padding:12px 12px;border-bottom:1px solid var(--paper2);cursor:pointer;-webkit-tap-highlight-color:transparent;transition:background 0.12s}
+.item:last-child{border-bottom:none}
+.item:active{background:var(--paper)}
+.item.chk{background:#FAF7F0}
+.chkbox{width:22px;height:22px;border-radius:5px;border:2px solid var(--paper3);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 0.2s;font-size:13px;color:#fff}
+.sec-当日 .item.chk .chkbox{background:var(--enja);border-color:var(--enja)}.sec-確認 .item.chk .chkbox{background:#2C6E8A;border-color:#2C6E8A}.sec-準備 .item.chk .chkbox{background:#4A7A2C;border-color:#4A7A2C}.sec-購入 .item.chk .chkbox{background:#7A5030;border-color:#7A5030}
+.item-body{flex:1;min-width:0}
+.item-text{font-size:13px;line-height:1.4;transition:opacity 0.2s}
+.item.chk .item-text{opacity:0.4;text-decoration:line-through}
+.item-note{font-size:10px;color:#999;margin-top:2px}
+.item-qty{font-size:10px;color:var(--gold);background:#FEF8E8;border:1px solid #EDD580;border-radius:8px;padding:2px 6px;white-space:nowrap;font-weight:700;flex-shrink:0}
+#done-msg{display:none;position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,var(--enja),#4A0810);color:var(--gold-lt);font-family:'Noto Serif JP',serif;font-size:14px;font-weight:700;letter-spacing:0.12em;padding:12px 24px;border-radius:30px;box-shadow:0 4px 16px rgba(0,0,0,0.4);z-index:200;white-space:nowrap}
+</style>
+</head>
+<body>
+
+<div id="splash">
+  <canvas id="splash-canvas"></canvas>
+  <div id="splash-ui">
+    <div id="splash-title">いざ百万石まつり！</div>
+    <div id="splash-sub">地頭町 大奉燈</div>
+    <div id="splash-tap">— タップして始める —</div>
+  </div>
+</div>
+
+<header>
+  <h1>大奉燈 チェックリスト</h1>
+  <p>百万石まつり ／ 地頭町</p>
+</header>
+<div class="prog-wrap">
+  <div class="prog-label"><span>進捗</span><span id="prog-txt">0 / 0 完了</span></div>
+  <div class="prog-bg"><div class="prog-fill" id="prog-fill"></div></div>
+  <button class="reset-btn" onclick="resetAll()">↺ すべてリセット</button>
+</div>
+<div id="cl"></div>
+<div id="done-msg">🎊 全項目チェック完了！</div>
+
+<script>
+const DATA=[
+  {id:"当日",icon:"🏮",label:"当日 持ち物",items:[
+    {t:"屋根（足）ツノ",q:"×2"},{t:"かたね棒",q:"×6"},{t:"腰巻（棒）"},{t:"鯉",q:"×2"},{t:"房"},
+    {t:"榊・紙垂",q:"×2"},{t:"ぼんぼり",q:"×6"},{t:"バッテリー大・箱"},{t:"アンプ類"},
+    {t:"ゴムマット"},{t:"立てる時の足"},{t:"立った後の足",q:"×4"},{t:"台車",q:"×2"},
+    {t:"座布団",q:"6枚以上"},{t:"ジャンジャン（棒）・かけや・当て木"},{t:"縄",q:"×2"},
+    {t:"上のぼんぼりつける治具"},{t:"工具（ラ19・ス13・モ）"},{t:"結束バンド"},
+    {t:"さっさ"},{t:"椿油"},{t:"雨天用の袋"},{t:"電池 単3・単4"},{t:"空気入れ"}
+  ]},
+  {id:"確認",icon:"🔍",label:"事前確認",items:[{t:"かたね棒のボルト・ナット確認"}]},
+  {id:"準備",icon:"📋",label:"事前準備",items:[
+    {t:"腰巻 しわ取り・霧吹き"},{t:"ぼんぼり・横障子の張替",n:"横障子の取り外し未"},
+    {t:"ジャンジャン作成",n:"一斗缶2つ予備2個・棒は使用可"},{t:"法被 枚数・番号確認"},
+    {t:"地区への参加要請",n:"対象：領家・高田・七海"},{t:"台車の空気確認",n:"川田さんにお願い"}
+  ]},
+  {id:"購入",icon:"🛒",label:"購入必要品",items:[
+    {t:"ヒンジ（腰巻）スプレー",n:"かわらや"},{t:"笛",q:"×5"},{t:"電池"},{t:"さっさ"},{t:"結束バンド"},
+    {t:"ぼんぼり・横障子の紙",n:"中林 → 依頼済み"},{t:"一斗缶",q:"×4",n:"りょーくん"}
+  ]}
+];
+
+const SK='hyaku_cl_v3';
+let st={};try{st=JSON.parse(localStorage.getItem(SK))||{};}catch(e){}
+function save(){try{localStorage.setItem(SK,JSON.stringify(st));}catch(e){}}
+
+function render(){
+  const wrap=document.getElementById('cl');wrap.innerHTML='';
+  DATA.forEach(sec=>{
+    const done=sec.items.filter((_,i)=>st[sec.id+i]).length;
+    const el=document.createElement('div');el.className='section sec-'+sec.id;
+    el.innerHTML=`<div class="sec-head"><div class="sec-icon">${sec.icon}</div><div class="sec-title">${sec.label}</div><div class="sec-count">${done}/${sec.items.length}</div></div>`;
+    const card=document.createElement('div');card.className='card';
+    sec.items.forEach((item,i)=>{
+      const key=sec.id+i;const chk=!!st[key];
+      const d=document.createElement('div');d.className='item'+(chk?' chk':'');
+      d.innerHTML=`<div class="chkbox">${chk?'✓':''}</div><div class="item-body"><div class="item-text">${item.t}</div>${item.n?`<div class="item-note">※ ${item.n}</div>`:''}</div>${item.q?`<div class="item-qty">${item.q}</div>`:''}`;
+      d.addEventListener('click',()=>{st[key]=!st[key];save();render();updateProg();});
+      card.appendChild(d);
+    });
+    el.appendChild(card);wrap.appendChild(el);
+  });
+  updateProg();
+}
+
+function updateProg(){
+  const total=DATA.reduce((s,sec)=>s+sec.items.length,0);
+  const done=DATA.reduce((s,sec)=>s+sec.items.filter((_,i)=>st[sec.id+i]).length,0);
+  document.getElementById('prog-txt').textContent=done+' / '+total+' 完了';
+  document.getElementById('prog-fill').style.width=(total?done/total*100:0)+'%';
+  document.getElementById('done-msg').style.display=(done===total&&total>0)?'block':'none';
+}
+
+function resetAll(){if(confirm('チェックをすべてリセットしますか？')){st={};save();render();}}
+
+// ── SPLASH ──
+const canvas=document.getElementById('splash-canvas');
+const ctx=canvas.getContext('2d');
+let W,H,rafId,scrollX=0;
+function resize(){W=canvas.width=canvas.offsetWidth;H=canvas.offsetHeight;canvas.height=H;}
+resize();window.addEventListener('resize',resize);
+
+const P=3;
+function px(x,y,w,h,color){ctx.fillStyle=color;ctx.fillRect(x*P,y*P,w*P,h*P);}
+
+function drawMikoshi(ox,oy){
+  px(ox,oy+30,26,3,'#8B4A10');
+  px(ox+1,oy+29,24,2,'#C9922A');
+  px(ox,oy+32,26,1,'#6B3010');
+  px(ox+2,oy+12,3,18,'#5A0A15');
+  px(ox+21,oy+12,3,18,'#5A0A15');
+  px(ox+5,oy+13,16,17,'#8B1A2A');
+  px(ox+6,oy+14,14,15,'#6B0F1A');
+  px(ox+2,oy+12,22,2,'#C9922A');
+  px(ox+2,oy+29,22,2,'#C9922A');
+  px(ox+4,oy+12,2,18,'#C9922A');
+  px(ox+20,oy+12,2,18,'#C9922A');
+  px(ox+9,oy+17,8,7,'#3A0A10');
+  px(ox+10,oy+18,6,5,'#1A0508');
+  px(ox+11,oy+19,4,3,'#FFD040');
+  px(ox+5,oy+26,16,4,'#6B0F1A');
+  px(ox+6,oy+25,2,2,'#F0C040');
+  px(ox+10,oy+25,2,2,'#F0C040');
+  px(ox+14,oy+25,2,2,'#F0C040');
+  px(ox+18,oy+25,2,2,'#F0C040');
+  px(ox,oy+10,26,3,'#2A1A08');
+  px(ox-1,oy+7,28,4,'#1A0A05');
+  px(ox+1,oy+6,24,2,'#C9922A');
+  ctx.fillStyle='#150805';
+  ctx.beginPath();ctx.moveTo((ox-4)*P,(oy+8)*P);ctx.lineTo((ox+13)*P,(oy-8)*P);ctx.lineTo((ox+30)*P,(oy+8)*P);ctx.closePath();ctx.fill();
+  ctx.fillStyle='#2A1810';
+  ctx.beginPath();ctx.moveTo((ox)*P,(oy+8)*P);ctx.lineTo((ox+13)*P,(oy-5)*P);ctx.lineTo((ox+26)*P,(oy+8)*P);ctx.closePath();ctx.fill();
+  px(ox-2,oy+7,30,1,'#C9922A');
+  px(ox,oy+9,26,1,'#A07820');
+  px(ox-4,oy+8,4,2,'#8B4A10');
+  px(ox+26,oy+8,4,2,'#8B4A10');
+  px(ox+12,oy-10,2,4,'#C9922A');
+  px(ox+11,oy-14,4,5,'#F0C040');
+  px(ox+12,oy-16,2,3,'#FFE060');
+  px(ox+10,oy-13,2,2,'#F0C040');
+  px(ox+14,oy-13,2,2,'#F0C040');
+  px(ox+9,oy-12,2,1,'#C9922A');
+  px(ox+15,oy-12,2,1,'#C9922A');
+  [-4,2,8,14].forEach(lx=>{
+    px(ox+lx,oy+10,2,3,'#C9922A');
+    px(ox+lx-1,oy+13,4,1,'#8B3A10');
+    px(ox+lx-1,oy+14,4,5,'#C01020');
+    px(ox+lx,oy+15,2,3,'#F03040');
+    px(ox+lx-1,oy+18,4,1,'#8B3A10');
+  });
+  px(ox-8,oy+30,42,2,'#7A4A10');
+  px(ox-10,oy+29,4,4,'#5A3010');
+  px(ox+32,oy+29,4,4,'#5A3010');
+}
+
+function drawKiriko(ox,oy,h){
+  const bw=10,bh=h;
+  px(ox,oy,bw,bh,'#0A0A30');
+  px(ox,oy,bw,2,'#1A1A1A');px(ox,oy+bh-2,bw,2,'#1A1A1A');
+  px(ox,oy,2,bh,'#1A1A1A');px(ox+bw-2,oy,2,bh,'#1A1A1A');
+  px(ox+2,oy+2,bw-4,bh-4,'#FFFAE0');
+  px(ox+3,oy+3,bw-6,bh-6,'#FFF8D0');
+  ctx.fillStyle='rgba(255,240,150,0.4)';ctx.fillRect((ox+3)*P,(oy+3)*P,(bw-6)*P,(bh-6)*P);
+  ctx.fillStyle='#1A0A08';ctx.font=`bold ${7*P}px 'Noto Serif JP',serif`;ctx.textAlign='center';
+  ctx.fillText('能',(ox+bw/2)*P,(oy+bh/2-2)*P);
+  ctx.fillText('登',(ox+bw/2)*P,(oy+bh/2+7)*P);
+  px(ox+1,oy-4,2,4,'#C9922A');px(ox+7,oy-4,2,4,'#C9922A');
+  px(ox,oy-7,4,4,'#C01020');px(ox+6,oy-7,4,4,'#C01020');
+  px(ox+1,oy-6,2,2,'#F04050');px(ox+7,oy-6,2,2,'#F04050');
+  px(ox-1,oy-1,bw+2,2,'#C9922A');px(ox-1,oy-2,bw+2,1,'#F0C040');
+  px(ox+3,oy+bh,4,6,'#7A4A10');
+  px(ox-4,oy+bh+4,bw+8,2,'#5A3010');
+}
+
+function drawPerson(ox,oy,bob,happiColor,hband){
+  px(ox+1,oy+10,2,6,'#F0E8D0');px(ox+4,oy+10,2,6,'#F0E8D0');
+  px(ox+1,oy+15,2,2,'#F8F8F8');px(ox+4,oy+15,2,2,'#F8F8F8');
+  px(ox,oy+8,7,4,'#F0E8D0');
+  px(ox,oy+2,7,7,happiColor);px(ox+1,oy+1,5,2,happiColor);
+  px(ox+2,oy+2,3,5,'#F0E8D0');
+  px(ox+1,oy+4,2,2,'#F0E8D0');px(ox+4,oy+4,2,2,'#F0E8D0');
+  ctx.fillStyle='#C89A6A';ctx.fillRect((ox+1)*P,(oy-4+bob)*P,5*P,5*P);
+  ctx.fillStyle=hband;ctx.fillRect((ox+1)*P,(oy-3+bob)*P,5*P,2*P);
+  px(ox-1,oy+2,2,4,'#C89A6A');px(ox+6,oy+2,2,4,'#C89A6A');
+}
+
+function drawScene(t){
+  const sw=W/P,sh=H/P;
+  const skyGrad=ctx.createLinearGradient(0,0,0,H*0.65);
+  skyGrad.addColorStop(0,'#060118');skyGrad.addColorStop(1,'#1A0530');
+  ctx.fillStyle=skyGrad;ctx.fillRect(0,0,W,H*0.65);
+  ctx.fillStyle='#FFFFFF';
+  [[12,5],[30,8],[55,3],[80,10],[100,6],[130,4],[150,9],[170,5],[20,15],[60,12],[110,14],[145,11]].forEach(([sx,sy])=>{
+    ctx.globalAlpha=0.5+0.5*Math.sin(t*2+sx);
+    ctx.fillRect(((sx-scrollX*0.1)%sw+sw)%sw*P,sy*P,P,P);
+  });
+  ctx.globalAlpha=1;
+  const moonX=(80-scrollX*0.05+sw)%sw;
+  ctx.fillStyle='#FFF8D0';ctx.beginPath();ctx.arc(moonX*P,12*P,7*P,0,Math.PI*2);ctx.fill();
+  ctx.fillStyle='#1A0530';ctx.beginPath();ctx.arc((moonX-2)*P,11*P,6*P,0,Math.PI*2);ctx.fill();
+  const groundY=sh*0.7;
+  ctx.fillStyle='#1A0F08';ctx.fillRect(0,groundY*P,W,H);
+  ctx.fillStyle='#2A1A10';ctx.fillRect(0,(groundY+1)*P,W,4*P);
+  ctx.fillStyle='#3A2A18';
+  for(let i=0;i<sw;i+=16){const rx=((i-scrollX)%sw+sw)%sw;ctx.fillRect(rx*P,(groundY+2)*P,8*P,2*P);}
+  ctx.fillStyle='#120820';
+  for(let i=0;i<4;i++){
+    const bx=((i*50-scrollX*0.2)%(sw+20)+sw+20)%(sw+20)-20;
+    const bh=12+i%3*4;
+    ctx.fillRect(bx*P,(groundY-bh)*P,14*P,bh*P);
+    ctx.fillStyle='#F0C04033';
+    for(let wy=2;wy<bh-2;wy+=4)for(let wx=2;wx<12;wx+=4)if(Math.sin(i*7+wx+wy)>0)ctx.fillRect((bx+wx)*P,(groundY-bh+wy)*P,2*P,2*P);
+    ctx.fillStyle='#120820';
+  }
+  const lanternY=groundY-10;
+  ctx.strokeStyle='#5A3010';ctx.lineWidth=P*0.5;
+  ctx.beginPath();ctx.moveTo(0,lanternY*P);ctx.lineTo(W,lanternY*P);ctx.stroke();
+  for(let i=0;i<sw;i+=10){
+    const lx=((i-scrollX)%sw+sw)%sw;
+    const swing=Math.sin(t*1.5+i)*0.5;
+    ctx.fillStyle='#C01020';ctx.fillRect((lx+swing)*P,(lanternY+1)*P,3*P,4*P);
+    ctx.fillStyle='#F03040';ctx.fillRect((lx+1+swing)*P,(lanternY+2)*P,1*P,2*P);
+    ctx.fillStyle='#C9922A';ctx.fillRect((lx+swing)*P,lanternY*P,3*P,1*P);ctx.fillRect((lx+swing)*P,(lanternY+4)*P,3*P,1*P);
+  }
+  function procX(i){return((i*18-scrollX+sw*4)%(sw*4+300))-40;}
+  function snakeY(i,t){return groundY+Math.sin(t*0.8+i*0.5)*1.5;}
+  const objs=[
+    {type:'person',i:0},{type:'person',i:1},{type:'person',i:2},
+    {type:'taiko',i:3},
+    {type:'person',i:4},{type:'person',i:5},
+    {type:'mikoshi',i:6},
+    {type:'person',i:7},{type:'person',i:8},{type:'person',i:9},
+    {type:'kiriko',i:10,h:30},
+    {type:'person',i:11},{type:'person',i:12},
+    {type:'kiriko',i:13,h:22},
+    {type:'person',i:14},{type:'person',i:15},
+    {type:'kiriko',i:16,h:26},
+    {type:'person',i:17},{type:'person',i:18},
+  ];
+  objs.forEach(obj=>{
+    const px2=procX(obj.i);if(px2<-40||px2>sw+40)return;
+    const sy=snakeY(obj.i,t);const bob=Math.sin(t*3+obj.i)*0.8;
+    if(obj.type==='person'){drawPerson(px2,sy-17+bob,0,'#6B0F1A',obj.i%2===0?'#F0C040':'#FFFFFF');}
+    else if(obj.type==='mikoshi'){
+      drawMikoshi(px2-13,sy-48);
+      for(let k=0;k<4;k++){const kx=px2-10+k*7;drawPerson(kx,sy-17+Math.sin(t*3+k*0.8)*1,0,'#6B0F1A','#F0C040');}
+    }
+    else if(obj.type==='kiriko'){
+      const kh=obj.h||24;drawKiriko(px2-5,sy-kh-10,kh);
+      for(let k=0;k<2;k++){drawPerson(px2-4+k*8,sy-17+Math.sin(t*3+k)*1,0,'#6B0F1A','#FFFFFF');}
+    }
+    else if(obj.type==='taiko'){
+      ctx.fillStyle='#8B2010';ctx.fillRect((px2)*P,(sy-14)*P,10*P,10*P);
+      ctx.fillStyle='#F0E8D0';ctx.fillRect((px2+1)*P,(sy-13)*P,8*P,8*P);
+      ctx.fillStyle='#C9922A';ctx.fillRect((px2)*P,(sy-14)*P,10*P,2*P);ctx.fillRect((px2)*P,(sy-5)*P,10*P,2*P);
+      drawPerson(px2+1,sy-17+Math.sin(t*4)*1,0,'#6B0F1A','#FF4040');
+    }
+  });
+  for(let i=0;i<8;i++){
+    const fx=((Math.sin(t*0.7+i*2.3)*30+i*25-scrollX*0.5)%sw+sw)%sw;
+    const fy=groundY-5+Math.sin(t+i*1.7)*4;
+    ctx.globalAlpha=0.4+0.6*Math.sin(t*3+i);ctx.fillStyle='#F0C040';
+    ctx.fillRect(fx*P,fy*P,P,P);
+  }
+  ctx.globalAlpha=1;
+}
+
+let lastT=null;
+function loop(ts){
+  if(!lastT)lastT=ts;const dt=(ts-lastT)/1000;lastT=ts;
+  scrollX+=dt*8;
+  ctx.clearRect(0,0,W,H);drawScene(ts/1000);
+  rafId=requestAnimationFrame(loop);
+}
+rafId=requestAnimationFrame(loop);
+
+function closeSplash(){
+  cancelAnimationFrame(rafId);
+  const s=document.getElementById('splash');s.classList.add('out');
+  setTimeout(()=>{if(s.parentNode)s.remove();},1000);
+}
+document.getElementById('splash').addEventListener('click',closeSplash);
+
+render();
+</script>
+</body>
+</html>
