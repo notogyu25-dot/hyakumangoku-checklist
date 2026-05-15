@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="冨木八朔祭礼 地頭町 大奉燈 チェックリスト｜受け継がれる、熱と誇り。">
+<title>冨木八朔祭礼 大奉燈 チェックリスト</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;700;900&family=Shippori+Mincho:wght@400;700;800&family=Cinzel:wght@400;600&family=Zen+Old+Mincho:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#070b1a;
+  --gold:#c9922a;
+  --gold-lt:#f0c040;
+  --gold-pale:#faedc0;
+  --lantern:#e8621a;
+  --lantern-glow:#ff8c3a;
+  --warm:#ffcc88;
+  --white:#fdfaf4;
+  --muted:rgba(253,250,244,0.55);
+  --font-jp:'Zen Old Mincho','Shippori Mincho','Noto Serif JP',serif;
+  --font-en:'Cinzel',serif;
+}
+html{scroll-behavior:smooth;overflow-x:hidden}
+body{background:var(--ink);color:var(--white);font-family:var(--font-jp);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+
+/* ── SPLASH ── */
+#splash{
+  position:fixed;inset:0;z-index:1000;
+  background:var(--ink);
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  overflow:hidden;cursor:pointer;
+}
+#splash.fade-out{animation:splashOut 1.2s cubic-bezier(0.4,0,0.2,1) forwards}
+@keyframes splashOut{
+  0%{opacity:1;transform:scale(1)}
+  100%{opacity:0;transform:scale(1.04);pointer-events:none}
+}
+#bg-canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.vignette{
+  position:absolute;inset:0;
+  background:radial-gradient(ellipse 80% 80% at 50% 50%, transparent 20%, rgba(7,11,26,0.65) 100%);
+  pointer-events:none;z-index:2;
+}
+.splash-content{
+  position:relative;z-index:10;
+  display:flex;flex-direction:column;
+  align-items:center;text-align:center;
+  padding:0 24px;
+}
+.splash-eyebrow{
+  font-family:var(--font-en);
+  font-size:clamp(9px,1.5vw,11px);
+  letter-spacing:0.45em;color:var(--gold);
+  text-transform:uppercase;
+  opacity:0;animation:riseIn 1.2s 0.4s cubic-bezier(0.16,1,0.3,1) forwards;
+  margin-bottom:20px;
+}
+.splash-location{
+  font-size:clamp(11px,1.8vw,13px);letter-spacing:0.3em;
+  color:var(--muted);
+  opacity:0;animation:riseIn 1.2s 0.6s cubic-bezier(0.16,1,0.3,1) forwards;
+  margin-bottom:14px;
+}
+.splash-title{
+  font-family:var(--font-jp);
+  font-size:clamp(38px,9vw,96px);
+  font-weight:900;letter-spacing:0.2em;line-height:1.1;
+  background:linear-gradient(155deg,#fdfaf4 0%,#f0c040 40%,#e8a020 65%,#fdfaf4 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  filter:drop-shadow(0 0 50px rgba(240,192,64,0.35));
+  opacity:0;animation:riseIn 1.4s 0.8s cubic-bezier(0.16,1,0.3,1) forwards;
+  margin-bottom:22px;
+}
+.splash-divider{
+  width:1px;height:44px;
+  background:linear-gradient(to bottom,transparent,var(--gold),transparent);
+  opacity:0;animation:riseIn 1s 1.2s ease forwards;
+  margin:0 auto 22px;
+}
+.splash-copy{
+  font-size:clamp(13px,2.2vw,17px);letter-spacing:0.28em;
+  color:var(--gold-pale);font-weight:400;
+  opacity:0;animation:riseIn 1.2s 1.4s cubic-bezier(0.16,1,0.3,1) forwards;
+  margin-bottom:52px;
+}
+.splash-cta{
+  opacity:0;animation:riseIn 1.2s 1.8s cubic-bezier(0.16,1,0.3,1) forwards;
+}
+.cta-btn{
+  display:inline-flex;align-items:center;gap:14px;
+  padding:17px 38px;
+  border:1px solid rgba(240,192,64,0.35);
+  border-radius:60px;
+  background:rgba(232,98,26,0.06);
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  color:var(--gold-pale);
+  font-family:var(--font-jp);
+  font-size:clamp(13px,2vw,16px);letter-spacing:0.25em;
+  text-decoration:none;cursor:pointer;
+  position:relative;overflow:hidden;
+  transition:all 0.5s cubic-bezier(0.16,1,0.3,1);
+  border:none;outline:none;
+  box-shadow:0 0 0 1px rgba(240,192,64,0.35);
+}
+.cta-btn::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at center,rgba(232,98,26,0.28) 0%,transparent 70%);
+  opacity:0;transition:opacity 0.5s;
+}
+.cta-btn:hover{
+  box-shadow:0 0 0 1px rgba(240,192,64,0.7),0 0 32px rgba(232,98,26,0.3),0 0 70px rgba(240,192,64,0.12);
+  transform:translateY(-2px);color:#fff;
+}
+.cta-btn:hover::before{opacity:1}
+.cta-arrow{
+  width:16px;height:16px;
+  border-right:1px solid var(--gold);border-bottom:1px solid var(--gold);
+  transform:rotate(-45deg);transition:transform 0.4s;flex-shrink:0;
+}
+.cta-btn:hover .cta-arrow{transform:rotate(-45deg) translate(3px,3px)}
+.splash-hint{
+  position:absolute;bottom:28px;left:50%;transform:translateX(-50%);
+  font-size:9px;letter-spacing:0.3em;color:rgba(253,250,244,0.25);
+  opacity:0;animation:riseIn 1s 2.4s ease forwards;z-index:10;
+  display:flex;flex-direction:column;align-items:center;gap:10px;
+}
+.hint-scroll{
+  width:1px;height:30px;
+  background:linear-gradient(to bottom,rgba(240,192,64,0.5),transparent);
+  animation:scrollPulse 2s infinite;
+}
+@keyframes scrollPulse{0%,100%{opacity:0.3;transform:scaleY(0.5)}50%{opacity:1;transform:scaleY(1)}}
+@keyframes riseIn{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+.vert-text{
+  position:absolute;right:max(20px,3.5vw);top:50%;transform:translateY(-50%);
+  writing-mode:vertical-rl;font-size:9px;letter-spacing:0.45em;
+  color:rgba(253,250,244,0.18);font-family:var(--font-jp);z-index:10;
+  opacity:0;animation:riseIn 1.2s 2.1s ease forwards;
+}
+
+/* ── CHECKLIST ── */
+#checklist-page{display:none;min-height:100vh;background:var(--ink)}
+#checklist-page.visible{display:block}
+.cl-header{
+  background:linear-gradient(180deg,rgba(10,14,30,0.98) 0%,rgba(7,11,26,0.95) 100%);
+  border-bottom:1px solid rgba(201,146,42,0.15);
+  padding:18px 16px 14px;text-align:center;
+  position:sticky;top:0;z-index:100;
+  backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+}
+.cl-header-inner{display:flex;align-items:center;justify-content:center;gap:10px}
+.cl-header-crest{
+  width:18px;height:18px;border:1px solid rgba(201,146,42,0.5);
+  border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:8px;color:var(--gold);flex-shrink:0;
+}
+.cl-header h1{
+  font-family:var(--font-jp);font-size:15px;font-weight:700;
+  background:linear-gradient(135deg,var(--gold-pale),var(--gold));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  letter-spacing:0.18em;
+}
+.cl-header p{color:rgba(253,250,244,0.3);font-size:9px;letter-spacing:0.1em;margin-top:4px}
+.prog-wrap{
+  background:rgba(10,14,30,0.96);
+  border-bottom:1px solid rgba(201,146,42,0.08);
+  padding:10px 16px 8px;
+  position:sticky;top:69px;z-index:99;
+  backdrop-filter:blur(12px);
+}
+.prog-label{
+  display:flex;justify-content:space-between;
+  font-size:9px;color:rgba(253,250,244,0.3);
+  letter-spacing:0.15em;margin-bottom:5px;font-family:var(--font-en);
+}
+.prog-bg{background:rgba(255,255,255,0.05);border-radius:1px;height:1px;overflow:visible}
+.prog-fill{
+  background:linear-gradient(90deg,var(--lantern),var(--gold-lt));
+  height:1px;transition:width 0.6s cubic-bezier(0.16,1,0.3,1);width:0%;
+  box-shadow:0 0 10px rgba(240,192,64,0.6),0 0 20px rgba(232,98,26,0.3);
+}
+.reset-btn{
+  display:inline-flex;align-items:center;gap:6px;margin-top:9px;
+  background:none;border:1px solid rgba(255,255,255,0.06);
+  border-radius:20px;padding:4px 12px;
+  font-size:9px;color:rgba(253,250,244,0.25);
+  cursor:pointer;letter-spacing:0.15em;font-family:var(--font-en);
+  transition:all 0.3s;text-transform:uppercase;
+}
+.reset-btn:hover{border-color:rgba(201,146,42,0.25);color:rgba(253,250,244,0.5)}
+.section{margin:22px 12px 0}
+.sec-head{
+  display:flex;align-items:center;gap:10px;
+  margin-bottom:8px;padding:0 2px;
+}
+.sec-line{flex:1;height:1px;background:linear-gradient(to right,rgba(255,255,255,0.06),transparent)}
+.sec-label{font-size:9px;letter-spacing:0.3em;font-family:var(--font-en);text-transform:uppercase}
+.sec-title-jp{font-family:var(--font-jp);font-size:12px;font-weight:700;letter-spacing:0.15em;margin-left:6px}
+.sec-count{font-size:9px;color:rgba(253,250,244,0.2);letter-spacing:0.05em;margin-left:auto;font-family:var(--font-en)}
+.sec-当日 .sec-label{color:var(--lantern)}
+.sec-確認 .sec-label{color:#5ab8cc}
+.sec-準備 .sec-label{color:#80b850}
+.sec-購入 .sec-label{color:var(--gold)}
+.card{
+  border-radius:6px;
+  border:1px solid rgba(255,255,255,0.05);
+  overflow:hidden;margin-bottom:16px;
+  background:rgba(255,255,255,0.02);
+}
+.item{
+  display:flex;align-items:center;gap:12px;
+  padding:13px 14px;
+  border-bottom:1px solid rgba(255,255,255,0.03);
+  cursor:pointer;transition:background 0.2s;
+  -webkit-tap-highlight-color:transparent;
+  position:relative;
+}
+.item::after{
+  content:'';position:absolute;left:0;top:0;bottom:0;width:2px;
+  opacity:0;transition:opacity 0.4s;border-radius:0 1px 1px 0;
+}
+.sec-当日 .item.chk::after{background:var(--lantern);opacity:1}
+.sec-確認 .item.chk::after{background:#5ab8cc;opacity:1}
+.sec-準備 .item.chk::after{background:#80b850;opacity:1}
+.sec-購入 .item.chk::after{background:var(--gold);opacity:1}
+.item:last-child{border-bottom:none}
+.item:active{background:rgba(255,255,255,0.03)}
+.item.chk{background:rgba(255,255,255,0.012)}
+.chkbox{
+  width:20px;height:20px;border-radius:4px;
+  border:1px solid rgba(255,255,255,0.12);
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;transition:all 0.35s cubic-bezier(0.16,1,0.3,1);
+  font-size:11px;color:transparent;
+}
+.sec-当日 .item.chk .chkbox{background:rgba(232,98,26,0.15);border-color:rgba(232,98,26,0.6);color:var(--lantern-glow);box-shadow:0 0 8px rgba(232,98,26,0.25)}
+.sec-確認 .item.chk .chkbox{background:rgba(90,184,204,0.15);border-color:rgba(90,184,204,0.5);color:#5ab8cc;box-shadow:0 0 8px rgba(90,184,204,0.2)}
+.sec-準備 .item.chk .chkbox{background:rgba(128,184,80,0.15);border-color:rgba(128,184,80,0.5);color:#80b850;box-shadow:0 0 8px rgba(128,184,80,0.2)}
+.sec-購入 .item.chk .chkbox{background:rgba(201,146,42,0.15);border-color:rgba(201,146,42,0.5);color:var(--gold-lt);box-shadow:0 0 8px rgba(201,146,42,0.25)}
+.item-body{flex:1;min-width:0}
+.item-text{font-size:13px;line-height:1.5;color:rgba(253,250,244,0.82);transition:all 0.3s;letter-spacing:0.04em}
+.item.chk .item-text{opacity:0.28;text-decoration:line-through;text-decoration-color:rgba(255,255,255,0.15)}
+.item-note{font-size:10px;color:rgba(253,250,244,0.25);margin-top:3px;letter-spacing:0.04em}
+.item-qty{
+  font-size:9px;color:var(--gold);
+  box-shadow:0 0 0 1px rgba(201,146,42,0.25);
+  border-radius:20px;padding:2px 8px;white-space:nowrap;font-weight:600;
+  flex-shrink:0;letter-spacing:0.08em;font-family:var(--font-en);
+}
+#done-msg{
+  display:none;position:fixed;bottom:24px;left:50%;transform:translateX(-50%);
+  background:rgba(7,11,26,0.92);
+  box-shadow:0 0 0 1px rgba(240,192,64,0.4),0 0 30px rgba(240,192,64,0.15),0 8px 40px rgba(0,0,0,0.6);
+  backdrop-filter:blur(24px);
+  color:var(--gold-lt);font-family:var(--font-jp);font-size:13px;font-weight:700;
+  letter-spacing:0.2em;padding:14px 30px;border-radius:40px;
+  z-index:200;white-space:nowrap;
+  animation:doneIn 0.7s cubic-bezier(0.16,1,0.3,1);
+}
+@keyframes doneIn{from{opacity:0;transform:translateX(-50%) translateY(16px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
+
+@media(max-width:480px){
+  .splash-title{letter-spacing:0.12em}
+  .vert-text{display:none}
+  .cta-btn{padding:18px 32px;font-size:15px}
+  .splash-copy{letter-spacing:0.2em}
+}
+</style>
+</head>
+<body>
+
+<div id="splash">
+  <canvas id="bg-canvas"></canvas>
+  <div class="vignette"></div>
+  <div class="vert-text">地頭町　大奉燈　百万石まつり</div>
+  <div class="splash-content">
+    <div class="splash-eyebrow">Tomogi Hassaku Festival</div>
+    <div class="splash-location">地頭町　大奉燈</div>
+    <h1 class="splash-title">冨木八朔祭礼</h1>
+    <div class="splash-divider"></div>
+    <p class="splash-copy">受け継がれる、熱と誇り。</p>
+    <div class="splash-cta">
+      <button class="cta-btn" id="cta-btn">
+        チェックリストを始める
+        <span class="cta-arrow"></span>
+      </button>
+    </div>
+  </div>
+  <div class="splash-hint">
+    タップして始める
+    <div class="hint-scroll"></div>
+  </div>
+</div>
+
+<div id="checklist-page">
+  <header class="cl-header">
+    <div class="cl-header-inner">
+      <div class="cl-header-crest">◈</div>
+      <h1>大奉燈 チェックリスト</h1>
+    </div>
+    <p>冨木八朔祭礼 ／ 地頭町 ／ 百万石まつり</p>
+  </header>
+  <div class="prog-wrap">
+    <div class="prog-label"><span>PROGRESS</span><span id="prog-txt">0 / 0</span></div>
+    <div class="prog-bg"><div class="prog-fill" id="prog-fill"></div></div>
+    <button class="reset-btn" onclick="resetAll()">↺ Reset</button>
+  </div>
+  <div id="cl"></div>
+  <div style="height:60px"></div>
+</div>
+
+<div id="done-msg">🏮 全項目チェック完了</div>
+
+<script>
+/* ── CANVAS BG ── */
+const canvas=document.getElementById('bg-canvas');
+const ctx=canvas.getContext('2d');
+let W,H,raf;
+function resize(){W=canvas.width=window.innerWidth;H=canvas.height=window.innerHeight;}
+resize();window.addEventListener('resize',resize);
+
+const STARS=Array.from({length:90},()=>({
+  x:Math.random(),y:Math.random(),
+  r:Math.random()*1.4+0.2,
+  speed:Math.random()*0.00008+0.00003,
+  op:Math.random()*0.55+0.1,
+  ph:Math.random()*Math.PI*2,
+  warm:Math.random()<0.18
+}));
+
+const LANTERNS=Array.from({length:8},(_, i)=>({
+  x:0.04+i*0.135,
+  y:0.14+Math.sin(i*1.9)*0.05,
+  sz:16+Math.random()*16,
+  ph:Math.random()*Math.PI*2,
+  sw:0.007+Math.random()*0.006,
+  gph:Math.random()*Math.PI*2,
+}));
+
+const SILHOUETTES=Array.from({length:14},(_, i)=>({
+  x:i/13,
+  baseY:0.8+Math.random()*0.07,
+  h:0.06+Math.random()*0.04,
+  w:0.011+Math.random()*0.007,
+  ph:Math.random()*Math.PI*2,
+  isKiriko:i%4===0,
+  kh:0.15+Math.random()*0.09,
+}));
+
+function drawFrame(t){
+  /* sky */
+  const sky=ctx.createLinearGradient(0,0,0,H);
+  sky.addColorStop(0,'#020409');
+  sky.addColorStop(0.3,'#060a18');
+  sky.addColorStop(0.6,'#150820');
+  sky.addColorStop(0.78,'#2a1008');
+  sky.addColorStop(1,'#0a0603');
+  ctx.fillStyle=sky;ctx.fillRect(0,0,W,H);
+
+  /* horizon glow */
+  const hg=ctx.createRadialGradient(W*.5,H*.75,0,W*.5,H*.75,W*.55);
+  hg.addColorStop(0,'rgba(190,65,12,0.16)');
+  hg.addColorStop(0.5,'rgba(120,28,5,0.06)');
+  hg.addColorStop(1,'transparent');
+  ctx.fillStyle=hg;ctx.fillRect(0,0,W,H);
+
+  /* moon */
+  const mx=W*0.82,my=H*0.12;
+  const moonGlow=ctx.createRadialGradient(mx,my,0,mx,my,W*0.12);
+  moonGlow.addColorStop(0,'rgba(255,248,200,0.06)');
+  moonGlow.addColorStop(1,'transparent');
+  ctx.fillStyle=moonGlow;ctx.fillRect(mx-W*.12,my-W*.12,W*.24,W*.24);
+  ctx.fillStyle='#fff8d0';ctx.beginPath();ctx.arc(mx,my,W*0.025,0,Math.PI*2);ctx.fill();
+  ctx.fillStyle='#120818';ctx.beginPath();ctx.arc(mx-W*0.008,my-H*0.006,W*0.02,0,Math.PI*2);ctx.fill();
+
+  /* stars */
+  STARS.forEach(s=>{
+    s.y-=s.speed;if(s.y<0)s.y=1;
+    const fl=s.op*(0.65+0.35*Math.sin(t*1.8+s.ph));
+    if(s.warm){
+      const g=ctx.createRadialGradient(s.x*W,s.y*H,0,s.x*W,s.y*H,s.r*5);
+      g.addColorStop(0,`rgba(255,160,60,${fl*0.4})`);g.addColorStop(1,'transparent');
+      ctx.fillStyle=g;ctx.fillRect(s.x*W-s.r*5,s.y*H-s.r*5,s.r*10,s.r*10);
+      ctx.fillStyle=`rgba(255,220,140,${fl})`;
+    } else {ctx.fillStyle=`rgba(210,218,255,${fl*0.75})`;}
+    ctx.beginPath();ctx.arc(s.x*W,s.y*H,s.r,0,Math.PI*2);ctx.fill();
+  });
+
+  /* architecture silhouettes */
+  ctx.fillStyle='rgba(3,2,7,0.93)';
+  // left temple
+  ctx.beginPath();ctx.moveTo(W*.0,H*.72);ctx.lineTo(W*.12,H*.52);ctx.lineTo(W*.24,H*.72);ctx.closePath();ctx.fill();
+  ctx.fillRect(W*.05,H*.72,W*.14,H*.22);
+  // right big
+  ctx.beginPath();ctx.moveTo(W*.6,H*.66);ctx.lineTo(W*.76,H*.44);ctx.lineTo(W*.92,H*.66);ctx.closePath();ctx.fill();
+  ctx.fillRect(W*.63,H*.66,W*.27,H*.22);
+  // gate torii
+  ctx.fillStyle='rgba(5,3,10,0.88)';
+  ctx.fillRect(W*.44,H*.62,W*.01,H*.16);
+  ctx.fillRect(W*.55,H*.62,W*.01,H*.16);
+  ctx.fillRect(W*.42,H*.6,W*.16,W*.012);
+  ctx.fillRect(W*.43,H*.63,W*.14,W*.008);
+  // trees
+  [.03,.35,.5,.95].forEach(tx=>{
+    ctx.fillStyle='rgba(4,8,3,0.82)';
+    const th=H*(0.09+Math.sin(tx*7)*0.03);
+    ctx.beginPath();
+    ctx.moveTo(tx*W,H*.73);
+    ctx.bezierCurveTo(tx*W-W*.04,H*.73-th*.4,tx*W-W*.055,H*.73-th,tx*W,H*.73-th);
+    ctx.bezierCurveTo(tx*W+W*.055,H*.73-th,tx*W+W*.04,H*.73-th*.4,tx*W,H*.73);
+    ctx.fill();
+  });
+
+  /* ground */
+  const gnd=ctx.createLinearGradient(0,H*.76,0,H);
+  gnd.addColorStop(0,'rgba(3,2,1,0)');gnd.addColorStop(0.2,'rgba(3,2,1,0.96)');gnd.addColorStop(1,'#010100');
+  ctx.fillStyle=gnd;ctx.fillRect(0,H*.76,W,H*.24);
+
+  /* lanterns */
+  LANTERNS.forEach(l=>{
+    const sw=Math.sin(t*.65+l.ph)*l.sw;
+    const lx=(l.x+sw)*W,ly=l.y*H;
+    const gw=0.72+0.28*Math.sin(t*1.1+l.gph);
+    const s=l.sz;
+    // rope
+    ctx.strokeStyle='rgba(100,65,20,0.4)';ctx.lineWidth=0.8;
+    ctx.beginPath();ctx.moveTo(lx,0);ctx.lineTo(lx,ly-s);ctx.stroke();
+    // halo
+    const h=ctx.createRadialGradient(lx,ly,0,lx,ly,s*3.5);
+    h.addColorStop(0,`rgba(240,130,30,${.18*gw})`);h.addColorStop(.6,`rgba(190,65,10,${.06*gw})`);h.addColorStop(1,'transparent');
+    ctx.fillStyle=h;ctx.fillRect(lx-s*3.5,ly-s*3.5,s*7,s*7);
+    // body
+    ctx.save();ctx.translate(lx,ly);
+    ctx.fillStyle=`rgba(195,55,8,${.88*gw})`;
+    ctx.beginPath();ctx.ellipse(0,0,s*.46,s*.6,0,0,Math.PI*2);ctx.fill();
+    const inn=ctx.createRadialGradient(0,-s*.08,0,0,0,s*.32);
+    inn.addColorStop(0,`rgba(255,210,90,${.92*gw})`);inn.addColorStop(.5,`rgba(245,120,20,${.55*gw})`);inn.addColorStop(1,'transparent');
+    ctx.fillStyle=inn;ctx.beginPath();ctx.ellipse(0,0,s*.28,s*.38,0,0,Math.PI*2);ctx.fill();
+    ctx.strokeStyle=`rgba(90,15,0,.35)`;ctx.lineWidth=.7;
+    for(let r=-2;r<=2;r++){ctx.beginPath();ctx.moveTo(-s*.45,r*s*.11);ctx.lineTo(s*.45,r*s*.11);ctx.stroke();}
+    ctx.fillStyle='rgba(70,35,8,.92)';
+    ctx.fillRect(-s*.2,-s*.63,s*.4,s*.09);ctx.fillRect(-s*.2,s*.53,s*.4,s*.09);
+    ctx.restore();
+  });
+
+  /* silhouettes */
+  SILHOUETTES.forEach(p=>{
+    const bob=Math.sin(t*1.6+p.ph)*.0025;
+    const px2=p.x*W,py=(p.baseY+bob)*H;
+    ctx.fillStyle='rgba(2,1,1,.88)';
+    if(p.isKiriko){
+      const kw=p.w*W*2,kh=p.kh*H;
+      ctx.fillRect(px2-kw/2,py-kh,kw,kh);
+      const lg=0.5+0.5*Math.sin(t*0.9+p.ph);
+      ctx.fillStyle=`rgba(200,75,8,${.5*lg})`;
+      ctx.fillRect(px2-kw*.25,py-kh-kh*.1,kw*.18,kh*.08);
+      ctx.fillRect(px2+kw*.07,py-kh-kh*.07,kw*.18,kh*.07);
+      ctx.fillStyle='rgba(2,1,1,.88)';
+    } else {
+      const pw=p.w*W,ph=p.h*H;
+      ctx.fillRect(px2-pw/2,py-ph,pw,ph);
+      ctx.beginPath();ctx.arc(px2,py-ph-pw*.7,pw*.65,0,Math.PI*2);ctx.fill();
+    }
+  });
+
+  /* firefly particles */
+  for(let i=0;i<10;i++){
+    const fx=((Math.sin(t*.5+i*2.1)*40+i*30)%W+W)%W;
+    const fy=H*.65+Math.sin(t*.8+i*1.4)*H*.08;
+    const fa=.25+.75*Math.sin(t*2.5+i);
+    ctx.globalAlpha=fa*.6;
+    ctx.fillStyle='#f0c040';
+    ctx.beginPath();ctx.arc(fx,fy,1.2,0,Math.PI*2);ctx.fill();
+    const fg=ctx.createRadialGradient(fx,fy,0,fx,fy,6);
+    fg.addColorStop(0,'rgba(240,192,64,.3)');fg.addColorStop(1,'transparent');
+    ctx.fillStyle=fg;ctx.fillRect(fx-6,fy-6,12,12);
+  }
+  ctx.globalAlpha=1;
+}
+
+let lastT=null;
+function loop(ts){
+  if(!lastT)lastT=ts;lastT=ts;
+  ctx.clearRect(0,0,W,H);
+  drawFrame(ts/1000);
+  raf=requestAnimationFrame(loop);
+}
+raf=requestAnimationFrame(loop);
+
+/* ── TRANSITION ── */
+function openChecklist(){
+  cancelAnimationFrame(raf);
+  const s=document.getElementById('splash');
+  s.classList.add('fade-out');
+  setTimeout(()=>{
+    s.style.display='none';
+    document.getElementById('checklist-page').classList.add('visible');
+    render();
+  },1100);
+}
+document.getElementById('splash').addEventListener('click',openChecklist);
+document.getElementById('cta-btn').addEventListener('click',e=>{e.stopPropagation();openChecklist();});
+
+/* ── DATA ── */
+const DATA=[
+  {id:"当日",en:"Day-of",label:"当日 持ち物",items:[
+    {t:"屋根（足）ツノ",q:"×2"},{t:"かたね棒",q:"×6"},{t:"腰巻（棒）"},
+    {t:"鯉",q:"×2"},{t:"房"},{t:"榊・紙垂",q:"×2"},{t:"ぼんぼり",q:"×6"},
+    {t:"バッテリー大・箱"},{t:"アンプ類"},{t:"ゴムマット"},
+    {t:"立てる時の足"},{t:"立った後の足",q:"×4"},{t:"台車",q:"×2"},
+    {t:"座布団",q:"6枚以上"},{t:"ジャンジャン（棒）・かけや・当て木"},
+    {t:"縄",q:"×2"},{t:"上のぼんぼりつける治具"},{t:"工具（ラ19・ス13・モ）"},
+    {t:"結束バンド"},{t:"さっさ"},{t:"椿油"},{t:"雨天用の袋"},
+    {t:"電池 単3・単4"},{t:"空気入れ"}
+  ]},
+  {id:"確認",en:"Check",label:"事前確認",items:[
+    {t:"かたね棒のボルト・ナット確認"}
+  ]},
+  {id:"準備",en:"Prep",label:"事前準備",items:[
+    {t:"腰巻 しわ取り・霧吹き"},
+    {t:"ぼんぼり・横障子の張替",n:"横障子の取り外し未"},
+    {t:"ジャンジャン作成",n:"一斗缶2つ予備2個・棒は使用可"},
+    {t:"法被 枚数・番号確認"},
+    {t:"地区への参加要請",n:"対象：領家・高田・七海"},
+    {t:"台車の空気確認",n:"川田さんにお願い"}
+  ]},
+  {id:"購入",en:"Buy",label:"購入必要品",items:[
+    {t:"ヒンジ（腰巻）スプレー",n:"かわらや"},
+    {t:"笛",q:"×5"},{t:"電池"},{t:"さっさ"},{t:"結束バンド"},
+    {t:"ぼんぼり・横障子の紙",n:"中林 → 依頼済み"},
+    {t:"一斗缶",q:"×4",n:"りょーくん"}
+  ]}
+];
+
+const SK='tomogi_cl_v1';
+let st={};try{st=JSON.parse(localStorage.getItem(SK))||{};}catch(e){}
+function save(){try{localStorage.setItem(SK,JSON.stringify(st));}catch(e){}}
+
+function render(){
+  const wrap=document.getElementById('cl');wrap.innerHTML='';
+  DATA.forEach(sec=>{
+    const done=sec.items.filter((_,i)=>st[sec.id+i]).length;
+    const el=document.createElement('div');el.className='section sec-'+sec.id;
+    el.innerHTML=`<div class="sec-head">
+      <div class="sec-line"></div>
+      <span class="sec-label">${sec.en}</span>
+      <span class="sec-title-jp">${sec.label}</span>
+      <span class="sec-count">${done} / ${sec.items.length}</span>
+    </div>`;
+    const card=document.createElement('div');card.className='card';
+    sec.items.forEach((item,i)=>{
+      const key=sec.id+i;const chk=!!st[key];
+      const d=document.createElement('div');d.className='item'+(chk?' chk':'');
+      d.innerHTML=`<div class="chkbox">${chk?'✓':''}</div>
+        <div class="item-body">
+          <div class="item-text">${item.t}</div>
+          ${item.n?`<div class="item-note">※ ${item.n}</div>`:''}
+        </div>
+        ${item.q?`<div class="item-qty">${item.q}</div>`:''}`;
+      d.addEventListener('click',()=>{st[key]=!st[key];save();render();updateProg();});
+      card.appendChild(d);
+    });
+    el.appendChild(card);wrap.appendChild(el);
+  });
+  updateProg();
+}
+
+function updateProg(){
+  const total=DATA.reduce((s,sec)=>s+sec.items.length,0);
+  const done=DATA.reduce((s,sec)=>s+sec.items.filter((_,i)=>st[sec.id+i]).length,0);
+  document.getElementById('prog-txt').textContent=`${done} / ${total}`;
+  document.getElementById('prog-fill').style.width=(total?done/total*100:0)+'%';
+  document.getElementById('done-msg').style.display=(done===total&&total>0)?'block':'none';
+}
+
+function resetAll(){
+  if(confirm('チェックをすべてリセットしますか？')){st={};save();render();}
+}
+</script>
+</body>
+</html>
